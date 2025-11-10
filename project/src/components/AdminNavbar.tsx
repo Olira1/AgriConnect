@@ -1,10 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Sprout, LogOut, User } from 'lucide-react';
+import { Sprout, LogOut, User, LayoutDashboard, Users, Package, ShoppingBag, DollarSign, Star, Megaphone, FileText, Settings } from 'lucide-react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-const Navbar = () => {
+const AdminNavbar = () => {
   const { userData, logout } = useAuth();
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -20,51 +20,41 @@ const Navbar = () => {
     }
   };
 
-  const farmerLinks = [
-    { to: '/farmer/products', label: 'My Products' },
-    { to: '/farmer/add-product', label: 'Add Product' },
-    { to: '/farmer/community', label: 'Community' },
-    { to: '/farmer/suggested-prices', label: 'Suggested Prices' },
-    { to: '/farmer/orders', label: 'Orders' },
-  ];
-
-  const consumerLinks = [
-    { to: '/marketplace', label: 'Marketplace' },
-    { to: '/consumer/cart', label: 'Cart' },
-    { to: '/consumer/orders', label: 'My Orders' },
-    { to: '/consumer/rate', label: 'Rate Farms' },
-  ];
-
   const adminLinks = [
-    { to: '/admin/dashboard', label: 'Admin Dashboard' },
+    { to: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { to: '/admin/users', label: 'Users', icon: Users },
+    { to: '/admin/products', label: 'Products', icon: Package },
+    { to: '/admin/orders', label: 'Orders', icon: ShoppingBag },
+    { to: '/admin/prices', label: 'Prices', icon: DollarSign },
+    { to: '/admin/reviews', label: 'Reviews', icon: Star },
+    { to: '/admin/announcements', label: 'Announcements', icon: Megaphone },
+    { to: '/admin/reports', label: 'Reports', icon: FileText },
+    { to: '/admin/settings', label: 'Settings', icon: Settings },
   ];
-
-  const links =
-    userData?.role === 'admin'
-      ? adminLinks
-      : userData?.role === 'farmer'
-      ? farmerLinks
-      : consumerLinks;
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/admin/dashboard" className="flex items-center gap-2">
             <Sprout className="w-8 h-8 text-green-600" />
-            <span className="text-2xl font-bold text-green-800">AgriConnect</span>
+            <span className="text-2xl font-bold text-green-800">AgriConnect Admin</span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-6">
-            {links.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className="text-gray-700 hover:text-green-600 font-medium transition"
-              >
-                {link.label}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center gap-4">
+            {adminLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition"
+                >
+                  <Icon className="w-4 h-4" />
+                  <span>{link.label}</span>
+                </Link>
+              );
+            })}
 
             <div className="relative">
               <button
@@ -106,16 +96,20 @@ const Navbar = () => {
 
         {showDropdown && (
           <div className="md:hidden pb-4 space-y-2">
-            {links.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={() => setShowDropdown(false)}
-                className="block px-4 py-2 text-gray-700 hover:bg-green-50 rounded-lg transition"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {adminLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setShowDropdown(false)}
+                  className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-green-50 rounded-lg transition"
+                >
+                  <Icon className="w-4 h-4" />
+                  {link.label}
+                </Link>
+              );
+            })}
             <button
               onClick={handleLogout}
               className="w-full px-4 py-2 text-left text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2 transition"
@@ -130,4 +124,5 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminNavbar;
+

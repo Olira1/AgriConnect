@@ -7,7 +7,9 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userData?.role === 'farmer') {
+    if (userData?.role === 'admin') {
+      navigate('/admin/dashboard');
+    } else if (userData?.role === 'farmer') {
       navigate('/farmer/products');
     } else if (userData?.role === 'consumer') {
       navigate('/marketplace');

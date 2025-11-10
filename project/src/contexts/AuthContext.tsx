@@ -13,14 +13,14 @@ interface UserData {
   uid: string;
   email: string;
   name: string;
-  role: 'farmer' | 'consumer';
+  role: 'farmer' | 'consumer' | 'admin';
 }
 
 interface AuthContextType {
   currentUser: User | null;
   userData: UserData | null;
   loading: boolean;
-  signup: (email: string, password: string, name: string, role: 'farmer' | 'consumer') => Promise<void>;
+  signup: (email: string, password: string, name: string, role: 'farmer' | 'consumer' | 'admin') => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const signup = async (email: string, password: string, name: string, role: 'farmer' | 'consumer') => {
+  const signup = async (email: string, password: string, name: string, role: 'farmer' | 'consumer' | 'admin') => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 

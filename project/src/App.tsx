@@ -20,6 +20,16 @@ import Cart from './pages/consumer/Cart';
 import MyOrders from './pages/consumer/MyOrders';
 import RateFarm from './pages/consumer/RateFarm';
 
+import AdminDashboard from './pages/admin/AdminDashboard';
+import UserManagement from './pages/admin/UserManagement';
+import ProductManagement from './pages/admin/ProductManagement';
+import OrderManagement from './pages/admin/OrderManagement';
+import SuggestedPricesAdmin from './pages/admin/SuggestedPricesAdmin';
+import ReviewsManagement from './pages/admin/ReviewsManagement';
+import Announcements from './pages/admin/Announcements';
+import Reports from './pages/admin/Reports';
+import AdminSettings from './pages/admin/AdminSettings';
+
 function App() {
   return (
     <Router>
@@ -103,6 +113,79 @@ function App() {
             element={
               <ProtectedRoute role="consumer">
                 <RateFarm />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute role="admin">
+                <UserManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/products"
+            element={
+              <ProtectedRoute role="admin">
+                <ProductManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/orders"
+            element={
+              <ProtectedRoute role="admin">
+                <OrderManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/prices"
+            element={
+              <ProtectedRoute role="admin">
+                <SuggestedPricesAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/reviews"
+            element={
+              <ProtectedRoute role="admin">
+                <ReviewsManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/announcements"
+            element={
+              <ProtectedRoute role="admin">
+                <Announcements />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/reports"
+            element={
+              <ProtectedRoute role="admin">
+                <Reports />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminSettings />
               </ProtectedRoute>
             }
           />
